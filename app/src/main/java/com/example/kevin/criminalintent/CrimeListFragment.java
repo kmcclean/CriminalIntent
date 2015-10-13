@@ -2,6 +2,7 @@ package com.example.kevin.criminalintent;
 
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.content.Intent;
 
@@ -9,6 +10,7 @@ import android.os.Bundle;
 
 import android.support.v4.app.ListFragment;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -29,11 +31,13 @@ public class CrimeListFragment extends ListFragment {
         setListAdapter(adapter);
     }
 
+    @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // get the Crime from the adapter
+        Log.i("crimes", "clicks");
         Crime c = ((CrimeAdapter)getListAdapter()).getItem(position);
         // start an instance of CrimePagerActivity
-        Intent i = new Intent(getActivity(), CrimePagerActivity.class);
+        Intent i = new Intent(getActivity(), CrimeActivity.class);
         i.putExtra(CrimeFragment.EXTRA_CRIME_ID, c.getId());
         startActivityForResult(i, 0);
     }
@@ -46,6 +50,7 @@ public class CrimeListFragment extends ListFragment {
     private class CrimeAdapter extends ArrayAdapter<Crime> {
         public CrimeAdapter(ArrayList<Crime> crimes) {
             super(getActivity(), android.R.layout.simple_list_item_1, crimes);
+            //Log.d(TAG, c.getTitle + " was clicked");
         }
 
         @Override
